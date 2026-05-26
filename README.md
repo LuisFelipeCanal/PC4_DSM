@@ -32,13 +32,3 @@ cd C:\Users\luisf\AndroidStudioProjects\PC4_LuisFelipeCanalAlvarado
 .\gradlew.bat :app:testDebugUnitTest
 ```
 
-## Inicialización de la base de datos
-
-La aplicación inicializa los datos de aeropuertos desde Kotlin al crear la base de datos por primera vez. Esto evita la necesidad de generar el `.db` con Python en la mayoría de los casos.
-
-- Si prefieres regenerar un asset SQLite manualmente, existe `create_db.py` en la raíz del repo como herramienta opcional; **no es necesario** para que la app funcione porque Room poblará la BD en la primera ejecución.
-- Para forzar la recreación del asset (opcional):
-
-```powershell
-python create_db.py --force
-```
