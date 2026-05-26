@@ -2,8 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Eliminado temporalmente android:name para evitar ClassNotFoundException
+         mientras resolvemos el empaquetado de la clase Application. Si necesitas
+         inicialización global (Room, DataStore, DI), vuelve a añadir
+         android:name=".FlightSearchApplication" una vez verificado que
+         la clase está correctamente incluida en el APK. -->
     <application
-        android:name=".FlightSearchApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
