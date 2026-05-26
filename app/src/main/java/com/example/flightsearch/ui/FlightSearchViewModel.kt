@@ -8,11 +8,14 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.flightsearch.data.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 private val Context.dataStore by preferencesDataStore("flight_search_prefs")
 
+@OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
 class FlightSearchViewModel(application: Application) :
     AndroidViewModel(application) {
 

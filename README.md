@@ -32,29 +32,13 @@ cd C:\Users\luisf\AndroidStudioProjects\PC4_LuisFelipeCanalAlvarado
 .\gradlew.bat :app:testDebugUnitTest
 ```
 
-## Entregable solicitado
+## Inicialización de la base de datos
 
-### a) Link de git (publico)
+La aplicación inicializa los datos de aeropuertos desde Kotlin al crear la base de datos por primera vez. Esto evita la necesidad de generar el `.db` con Python en la mayoría de los casos.
 
-- Pendiente de agregar: `https://github.com/<usuario>/<repositorio>`
+- Si prefieres regenerar un asset SQLite manualmente, existe `create_db.py` en la raíz del repo como herramienta opcional; **no es necesario** para que la app funcione porque Room poblará la BD en la primera ejecución.
+- Para forzar la recreación del asset (opcional):
 
-### b) Capturas de pantalla del codigo
-
-Agrega aqui capturas de:
-
-- `app/src/main/java/com/example/pc4_luisfelipecanalalvarado/MainActivity.kt`
-- `app/src/main/java/com/example/pc4_luisfelipecanalalvarado/FlightSearchViewModel.kt`
-- `app/src/main/java/com/example/pc4_luisfelipecanalalvarado/FlightSearchScreen.kt`
-- `app/src/main/java/com/example/pc4_luisfelipecanalalvarado/data/FlightSearchDao.kt`
-- `app/src/main/java/com/example/pc4_luisfelipecanalalvarado/data/FlightSearchDatabase.kt`
-
-### c) Capturas de pantalla del funcionamiento
-
-Agrega aqui capturas de:
-
-- Campo de busqueda vacio mostrando rutas favoritas.
-- Autocompletado al escribir un nombre o IATA.
-- Seleccion de aeropuerto y lista de vuelos.
-- Guardar y quitar una ruta favorita.
-- Reapertura de app con texto de busqueda restaurado.
-
+```powershell
+python create_db.py --force
+```

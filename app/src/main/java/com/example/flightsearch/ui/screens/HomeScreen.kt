@@ -1,5 +1,6 @@
 package com.example.flightsearch.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,7 +11,13 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.flightsearch.data.Airport
@@ -68,7 +75,7 @@ fun HomeScreen(viewModel: FlightSearchViewModel = viewModel()) {
 @Composable
 fun SuggestionsList(suggestions: List<Airport>, onAirportSelected: (Airport) -> Unit) {
     LazyColumn {
-        items(suggestions) { airport ->
+        items(suggestions, key = { it.id ?: it.iataCode }) { airport ->
             SuggestionItem(airport) { onAirportSelected(airport) }
         }
     }
@@ -76,14 +83,29 @@ fun SuggestionsList(suggestions: List<Airport>, onAirportSelected: (Airport) -> 
 
 @Composable
 fun SuggestionItem(airport: Airport, onClick: () -> Unit) {
-    Column(
+    val interactionSource = remember { MutableInteractionSource() }
+    Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClick() }
-            .padding(12.dp)
+            .padding(vertical = 4.dp),
+        shape = RoundedCornerShape(8.dp),
+        color = Color(0xFFECEFF1)
     ) {
-        Text(text = airport.iataCode, style = MaterialTheme.typography.bodyLarge)
-        Text(text = airport.name, style = MaterialTheme.typography.bodySmall)
+        Row(
+            modifier = Modifier
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = rememberRipple(color = Color(0xFFBBBBBB)),
+                    onClick = onClick
+                )
+                .padding(12.dp)
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(text = airport.iataCode, style = MaterialTheme.typography.bodyLarge, color = Color(0xFF212121))
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(text = airport.name, style = MaterialTheme.typography.bodySmall, color = Color(0xFF424242))
+            }
+        }
     }
 }
 
@@ -149,7 +171,7 @@ fun FlightItem(
                 Text(if (isFav) "★" else "☆", fontSize = MaterialTheme.typography.headlineSmall.fontSize)
             }
         }
-        Divider()
+        HorizontalDivider()
     }
 }
 
@@ -176,11 +198,9 @@ fun FavoritesList(favorites: List<com.example.flightsearch.data.Favorite>, viewM
                             Text("★", fontSize = MaterialTheme.typography.headlineSmall.fontSize)
                         }
                     }
-                    Divider()
+                    HorizontalDivider()
                 }
             }
         }
     }
 }
-
-
